@@ -1,15 +1,22 @@
 package com.example.myott35
 
+import android.animation.AnimatorInflater
+import android.content.res.Resources
+import android.graphics.drawable.AnimatedVectorDrawable
 import android.media.MediaPlayer
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.ImageView
 import android.widget.VideoView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintSet
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.*
 
 
 class MainActivity : AppCompatActivity() {
-    var counter=0
+    var counter = 0
     private var animationMode = true
     lateinit var otts: ArrayList<Ott>
     private var videoBG: VideoView? = null
@@ -31,15 +38,194 @@ class MainActivity : AppCompatActivity() {
                       else imageView.visibility=View.VISIBLE
           }*/
 
-        /* mainLayout.setOnClickListener {
-             CoroutineScope(Dispatchers.Main).launch {
-                 //delay(1000)
-                 createOtt()
-                 drawAllOtts()
-                 lastApizode()
-             }
-         }*/
+        //    mainLayout.setOnClickListener {
+        CoroutineScope(Dispatchers.Main).launch {
+            //delay(1000)
+            createOtt()
+            drawAllOtts()
+            //  lastApizode()
+        }
+        //   }
     }
+
+    private suspend fun lastApizode() {
+        delay(2000)
+        for (index in 0 until otts.size) {
+
+            val anim = AnimatorInflater.loadAnimator(this, R.animator.set3)
+            anim?.apply {
+                setTarget(otts[index].iv)
+                start()
+            }
+        }
+    }
+
+    private suspend fun drawAllOtts() {
+        withContext(Dispatchers.Main) {
+            for (i in 0 until otts.size) {
+                drawOneOtt(otts[i])
+            }
+        }
+    }
+
+    private suspend fun drawOneOtt(ott: Ott) {
+        val image = ott.iv
+
+        if (animationMode) {
+            if (counter > 0) delay(100)
+            counter++
+            mainLayout.addView(image)
+            setParameters(ott)
+            val avd = image.drawable as AnimatedVectorDrawable
+            avd.start()
+        } else {
+            mainLayout.addView(image)
+            setParameters(ott)
+        }
+        if (ott.index == 29) {
+            val anim = AnimatorInflater.loadAnimator(this, R.animator.rotate)
+            anim?.apply {
+                setTarget(otts[counter].iv)
+                start()
+            }
+
+        }
+    }
+
+    private fun setParameters(ott: Ott) {
+        with(ott) {
+            if (width > 0) {
+                iv.layoutParams.height = height.toPx()
+                iv.layoutParams.width = width.toPx()
+            }
+            val imageView = ott.iv
+            imageView.id = View.generateViewId()
+            val set = ConstraintSet()
+            set.clone(mainLayout)
+
+            /* set.connect(
+                 imageView.id, ConstraintSet.TOP, ConstraintSet.PARENT_ID,
+                 ConstraintSet.TOP, ott.mT.toPx()
+             )*/
+            /* set.connect(
+                 imageView.id, ConstraintSet.START, ConstraintSet.PARENT_ID,
+                 ConstraintSet.START, ott.mL.toPx()
+             )*/
+
+            set.connect(
+                imageView.id, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID,
+                ConstraintSet.BOTTOM, ott.mBottom.toPx()
+            )
+
+            set.connect(
+                imageView.id, ConstraintSet.END, ConstraintSet.PARENT_ID,
+                ConstraintSet.END, ott.mRight.toPx()
+            )
+
+            set.applyTo(mainLayout)
+        }
+    }
+
+    private fun createOtt() {
+        otts = ArrayList()
+        val int00 = 30
+        val int0 = 0
+        val int1 = 0
+        val int2 = 0
+        val int3 = 0
+        val scale0 = 120
+        val scale1 = 80
+        val scale2 = 50
+        val scale3 = 70
+        val bottom0 = 670
+        val buttom1 = 570
+        val buttom2 = 565
+        val buttom3 = 480
+        val buttom4 = 150
+        /* width,height,mLeft,mTop,mRight,mBelow*/
+        otts = arrayListOf(
+
+            Ott(mV("ה"), 0, scale0, scale0, 80 + int00, bottom0),
+            Ott(mV("ק"), 1, scale0, scale0, 150 + int00, bottom0 - 20),
+            Ott(mV("ס"), 2, scale0 - 20, scale0 - 20, 215 + int00, bottom0 + 2),
+            Ott(mV("ם"), 3, scale0 - 15, scale0 - 15, 283 + int00, bottom0 - 1),
+
+            Ott(mV("ג"), 4, scale1, scale1, 100 + int0, buttom1),
+            Ott(mV("ל"), 5, scale1, scale1, 135 + int0, buttom1),
+            Ott(mV("ו"), 6, scale1, scale1, 163 + int0, buttom1 - 5),
+            Ott(mV("י"), 7, scale1, scale1, 175 + int0, buttom1 - 5),
+
+            Ott(mV("ר"), 8, scale1+10, scale1+10, 230 + int1, buttom2-10),
+            Ott(mV("ק"), 9, scale1, scale1, 275 + int1, buttom2-15),
+
+              Ott(mV("ל"), 10,  scale3,scale3, 100+int3,  buttom3),
+              Ott(mV("ר"), 11,  scale3+10,scale3+10, 135+int3,  buttom3-12),
+        Ott(mV("ו"), 12,  scale3,scale3, 165+int3,  buttom3-2),
+              Ott(mV("א"), 13,  scale3,scale3, 195+int3,  buttom3-2),
+              Ott(mV("י"), 14,  scale3,scale3, 220+int3,  buttom3),
+              Ott(mV("ם"), 15,  scale3,scale3, 255+int3,  buttom3-3)
+
+        /*    Ott(mV("א"), 16,  scale1,scale1, 87+int1,  buttom2),
+            Ott(mV("ת"), 17,  scale1,scale1, 110+int1,  buttom2),
+
+            Ott(mV("ה"), 18,  scale1,scale1, 150+int1,  buttom2-13),
+            Ott(mV("ק"), 19,  scale1,scale1, 185+int1,  buttom2),
+            Ott(mV("ס"), 20,  scale1,scale1, 220+int1,  buttom2+3),
+            Ott(mV("מ"), 21,  scale1,scale1, 285+int1,  buttom2),
+            Ott(mV("י"), 22,  scale1,scale1, 320+int1,  buttom2),
+            Ott(mV("ם"), 23,  scale1,scale1, 361+int1,  buttom2),
+            Ott(mV("ן"), 24,  scale1,scale1, 382+int1,  buttom2-15),
+
+            Ott(mV("א"), 25,  scale2,scale2, 85,  buttom3),
+            Ott(mV("י"), 26,  scale2,scale2, 100,  buttom3),
+            Ott(mV("ן"), 27,  scale2,scale2, 105,  buttom3-10),
+            Ott(mV("א"), 28,  scale2,scale2, 152+int2,  buttom3),
+            Ott(mV("ג"), 29,  scale2,scale2, 175+int2,  buttom3),
+            Ott(mV("י"), 30,  scale2,scale2, 187+int2,  buttom3+10),
+            Ott(mV("נ"), 31,  scale2,scale2, 208+int2,  buttom3-10),
+            Ott(mV("ד"), 32,  scale2+5,scale2+5, 220+int2,  buttom3),
+            Ott(mV("ה"), 33,  scale2,scale2, 250+int2,  buttom3),
+            Ott(mV("פ"), 34,  scale2,scale2, 295+int2,  buttom3),
+            Ott(mV("ו"), 35,  scale2,scale2, 315+int2,  buttom3),
+            Ott(mV("ל"), 36,  scale2,scale2, 330+int2,  buttom3),
+            Ott(mV("י"), 37,  scale2,scale2, 350+int2,  buttom3),
+            Ott(mV("ט"), 38,  scale2,scale2, 370+int2,  buttom3),
+            Ott(mV("י"), 39,  scale2,scale2, 390+int2,  buttom3),
+            Ott(mV("ת"), 40,  scale2,scale2, 410+int2,  buttom3),
+
+            Ott(mV("ה"), 41,  scale2,scale2, 90+int3,  buttom4),
+            Ott(mV("ם"), 42,  scale2-8,scale2, 125+int3,  buttom4),
+
+            Ott(mV("פ"), 43,  scale2,scale2, 172+int3,  buttom4),
+            Ott(mV("ש"), 44,  scale2,scale2, 197+int3,  buttom4),
+            Ott(mV("ו"), 45,  scale2,scale2, 215+int3,  buttom4),
+            Ott(mV("ט"), 46,  scale2+3,scale2+3, 233+int3,  buttom4),
+
+            Ott(mV("ק"), 47,  scale2+5,scale2+5, 285+int3,  buttom4-15),
+            Ott(mV("י"), 48,  scale2,scale2, 305+int3,  buttom4),
+            Ott(mV("י"), 49,  scale2,scale2, 315+int3,  buttom4),
+            Ott(mV("מ"), 50,  scale2,scale2, 330+int3,  buttom4-3),
+            Ott(mV("י"), 51,  scale2,scale2, 350+int3,  buttom4),
+            Ott(mV("ם"), 52,  scale2,scale2, 373+int3,  buttom4)*/
+        )
+
+    }
+
+    private fun mV(letter: String): ImageView {
+        val imageView = ImageView(this)
+        val address = Helper(this).getAnimation1(letter)
+        if (animationMode) {
+            val address = Helper(this).getAnimation21(letter)
+            imageView.setImageResource(address)
+        } else {
+            val address = Helper(this).getAnimation1(letter)
+            imageView.setImageResource(address)
+        }
+        return imageView
+    }
+
+    fun Int.toPx(): Int = (this * Resources.getSystem().displayMetrics.density).toInt()
+
 
     private fun setDimension() { // Adjust the size of the video
 // so it fits on the screen
@@ -52,8 +238,8 @@ class MainActivity : AppCompatActivity() {
         if (videoProportion < screenProportion) {
             lp.height = screenHeight
             lp.width = (screenHeight.toFloat() / videoProportion).toInt()
-            lp.height=lp.height*3
-            lp.width=lp.width*3
+            lp.height = lp.height * 3
+            lp.width = lp.width * 3
         } else {
             lp.width = screenWidth
             lp.height = (screenWidth.toFloat() * videoProportion).toInt()
@@ -69,7 +255,7 @@ class MainActivity : AppCompatActivity() {
         return 1.5f
     }
 
-    private fun videoBackgroundPreperation(){
+    private fun videoBackgroundPreperation() {
         videoBG = findViewById(R.id.videoView) as VideoView
         val uri = Uri.parse(
             ("android.resource://" // First start with this,
