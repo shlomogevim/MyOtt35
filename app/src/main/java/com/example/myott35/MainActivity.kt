@@ -38,18 +38,18 @@ class MainActivity : AppCompatActivity() {
                       else imageView.visibility=View.VISIBLE
           }*/
 
-        //    mainLayout.setOnClickListener {
+            mainLayout.setOnClickListener {
         CoroutineScope(Dispatchers.Main).launch {
-            //delay(1000)
+            delay(1000)
             createOtt()
             drawAllOtts()
-            //  lastApizode()
+            lastApizode()
         }
-        //   }
+           }
     }
 
     private suspend fun lastApizode() {
-        delay(2000)
+        delay(5000)
         for (index in 0 until otts.size) {
 
             val anim = AnimatorInflater.loadAnimator(this, R.animator.set3)
@@ -72,7 +72,7 @@ class MainActivity : AppCompatActivity() {
         val image = ott.iv
 
         if (animationMode) {
-            if (counter > 0) delay(100)
+            if (counter > 0) delay(250)
             counter++
             mainLayout.addView(image)
             setParameters(ott)
@@ -129,19 +129,21 @@ class MainActivity : AppCompatActivity() {
     private fun createOtt() {
         otts = ArrayList()
         val int00 = 30
-        val int0 = 0
-        val int1 = 0
+        val int0 = -20
+        val int1 = -40
         val int2 = 0
-        val int3 = 0
+        val int3 = 165
+        val int4 = 30
+        val int44 = 30
         val scale0 = 120
-        val scale1 = 80
-        val scale2 = 50
-        val scale3 = 70
+        val scale1 = 60
+        val scale2 = 60
+        val scale4 = 60
         val bottom0 = 670
         val buttom1 = 570
         val buttom2 = 565
-        val buttom3 = 480
-        val buttom4 = 150
+        val buttom3 = 565
+        val buttom4 = 500
         /* width,height,mLeft,mTop,mRight,mBelow*/
         otts = arrayListOf(
 
@@ -151,62 +153,63 @@ class MainActivity : AppCompatActivity() {
             Ott(mV("ם"), 3, scale0 - 15, scale0 - 15, 283 + int00, bottom0 - 1),
 
             Ott(mV("ג"), 4, scale1, scale1, 100 + int0, buttom1),
-            Ott(mV("ל"), 5, scale1, scale1, 135 + int0, buttom1),
-            Ott(mV("ו"), 6, scale1, scale1, 163 + int0, buttom1 - 5),
-            Ott(mV("י"), 7, scale1, scale1, 175 + int0, buttom1 - 5),
+            Ott(mV("ל"), 5, scale1, scale1, 128 + int0, buttom1),
+            Ott(mV("ו"), 6, scale1, scale1, 150 + int0, buttom1 - 5),
+            Ott(mV("י"), 7, scale1, scale1, 160 + int0, buttom1 - 5),
 
-            Ott(mV("ר"), 8, scale1+10, scale1+10, 230 + int1, buttom2-10),
-            Ott(mV("ק"), 9, scale1, scale1, 275 + int1, buttom2-15),
+            Ott(mV("ר"), 8, scale1+10, scale1+10, 220 + int1, buttom2-10),
+            Ott(mV("ק"), 9, scale1, scale1, 255 + int1, buttom2-15),
 
-              Ott(mV("ל"), 10,  scale3,scale3, 100+int3,  buttom3),
-              Ott(mV("ר"), 11,  scale3+10,scale3+10, 135+int3,  buttom3-12),
-        Ott(mV("ו"), 12,  scale3,scale3, 165+int3,  buttom3-2),
-              Ott(mV("א"), 13,  scale3,scale3, 195+int3,  buttom3-2),
-              Ott(mV("י"), 14,  scale3,scale3, 220+int3,  buttom3),
-              Ott(mV("ם"), 15,  scale3,scale3, 255+int3,  buttom3-3)
+              Ott(mV("ל"), 10,  scale2,scale2, 100+int3,  buttom3),
+              Ott(mV("ר"), 11,  scale2+10,scale2+10, 130+int3,  buttom3-12),
+        Ott(mV("ו"), 12,  scale2,scale2, 157+int3,  buttom3-2),
+              Ott(mV("א"), 13,  scale2,scale2, 182+int3,  buttom3-2),
+              Ott(mV("י"), 14,  scale2,scale2, 200+int3,  buttom3),
+              Ott(mV("ם"), 15,  scale2,scale2, 225+int3,  buttom3-3),
 
-        /*    Ott(mV("א"), 16,  scale1,scale1, 87+int1,  buttom2),
-            Ott(mV("ת"), 17,  scale1,scale1, 110+int1,  buttom2),
+            Ott(mV("א"), 16,  scale4,scale4, 87+int4,  buttom4),
+            Ott(mV("ת"), 17,  scale4,scale4, 120+int4,  buttom4-10),
 
-            Ott(mV("ה"), 18,  scale1,scale1, 150+int1,  buttom2-13),
-            Ott(mV("ק"), 19,  scale1,scale1, 185+int1,  buttom2),
-            Ott(mV("ס"), 20,  scale1,scale1, 220+int1,  buttom2+3),
-            Ott(mV("מ"), 21,  scale1,scale1, 285+int1,  buttom2),
-            Ott(mV("י"), 22,  scale1,scale1, 320+int1,  buttom2),
-            Ott(mV("ם"), 23,  scale1,scale1, 361+int1,  buttom2),
-            Ott(mV("ן"), 24,  scale1,scale1, 382+int1,  buttom2-15),
+          Ott(mV("ה"), 18,  scale4,scale4, 170+int44,  buttom4),
+           Ott(mV("ק"), 19,  scale4+10,scale4+10, 205+int44,  buttom4-10),
+           Ott(mV("ס"), 20,  scale4,scale4, 243+int44,  buttom4),
+           Ott(mV("מ"), 21,  scale4,scale4, 276+int44,  buttom4),
+           Ott(mV("י"), 22,  scale4,scale4, 295+int44,  buttom4),
+           Ott(mV("ם"), 23,  scale4,scale4, 320+int44,  buttom4)
 
-            Ott(mV("א"), 25,  scale2,scale2, 85,  buttom3),
-            Ott(mV("י"), 26,  scale2,scale2, 100,  buttom3),
-            Ott(mV("ן"), 27,  scale2,scale2, 105,  buttom3-10),
-            Ott(mV("א"), 28,  scale2,scale2, 152+int2,  buttom3),
-            Ott(mV("ג"), 29,  scale2,scale2, 175+int2,  buttom3),
-            Ott(mV("י"), 30,  scale2,scale2, 187+int2,  buttom3+10),
-            Ott(mV("נ"), 31,  scale2,scale2, 208+int2,  buttom3-10),
-            Ott(mV("ד"), 32,  scale2+5,scale2+5, 220+int2,  buttom3),
-            Ott(mV("ה"), 33,  scale2,scale2, 250+int2,  buttom3),
-            Ott(mV("פ"), 34,  scale2,scale2, 295+int2,  buttom3),
-            Ott(mV("ו"), 35,  scale2,scale2, 315+int2,  buttom3),
-            Ott(mV("ל"), 36,  scale2,scale2, 330+int2,  buttom3),
-            Ott(mV("י"), 37,  scale2,scale2, 350+int2,  buttom3),
-            Ott(mV("ט"), 38,  scale2,scale2, 370+int2,  buttom3),
-            Ott(mV("י"), 39,  scale2,scale2, 390+int2,  buttom3),
-            Ott(mV("ת"), 40,  scale2,scale2, 410+int2,  buttom3),
 
-            Ott(mV("ה"), 41,  scale2,scale2, 90+int3,  buttom4),
-            Ott(mV("ם"), 42,  scale2-8,scale2, 125+int3,  buttom4),
+            /*    Ott(mV("ן"), 24,  scale4,scale4, 500+int44,  buttom4),
+               Ott(mV("א"), 25,  scale2,scale2, 85,  buttom3),
+               Ott(mV("י"), 26,  scale2,scale2, 100,  buttom3),
+               Ott(mV("ן"), 27,  scale2,scale2, 105,  buttom3-10),
+               Ott(mV("א"), 28,  scale2,scale2, 152+int2,  buttom3),
+               Ott(mV("ג"), 29,  scale2,scale2, 175+int2,  buttom3),
+               Ott(mV("י"), 30,  scale2,scale2, 187+int2,  buttom3+10),
+               Ott(mV("נ"), 31,  scale2,scale2, 208+int2,  buttom3-10),
+               Ott(mV("ד"), 32,  scale2+5,scale2+5, 220+int2,  buttom3),
+               Ott(mV("ה"), 33,  scale2,scale2, 250+int2,  buttom3),
+               Ott(mV("פ"), 34,  scale2,scale2, 295+int2,  buttom3),
+               Ott(mV("ו"), 35,  scale2,scale2, 315+int2,  buttom3),
+               Ott(mV("ל"), 36,  scale2,scale2, 330+int2,  buttom3),
+               Ott(mV("י"), 37,  scale2,scale2, 350+int2,  buttom3),
+               Ott(mV("ט"), 38,  scale2,scale2, 370+int2,  buttom3),
+               Ott(mV("י"), 39,  scale2,scale2, 390+int2,  buttom3),
+               Ott(mV("ת"), 40,  scale2,scale2, 410+int2,  buttom3),
 
-            Ott(mV("פ"), 43,  scale2,scale2, 172+int3,  buttom4),
-            Ott(mV("ש"), 44,  scale2,scale2, 197+int3,  buttom4),
-            Ott(mV("ו"), 45,  scale2,scale2, 215+int3,  buttom4),
-            Ott(mV("ט"), 46,  scale2+3,scale2+3, 233+int3,  buttom4),
+               Ott(mV("ה"), 41,  scale2,scale2, 90+int3,  buttom4),
+               Ott(mV("ם"), 42,  scale2-8,scale2, 125+int3,  buttom4),
 
-            Ott(mV("ק"), 47,  scale2+5,scale2+5, 285+int3,  buttom4-15),
-            Ott(mV("י"), 48,  scale2,scale2, 305+int3,  buttom4),
-            Ott(mV("י"), 49,  scale2,scale2, 315+int3,  buttom4),
-            Ott(mV("מ"), 50,  scale2,scale2, 330+int3,  buttom4-3),
-            Ott(mV("י"), 51,  scale2,scale2, 350+int3,  buttom4),
-            Ott(mV("ם"), 52,  scale2,scale2, 373+int3,  buttom4)*/
+               Ott(mV("פ"), 43,  scale2,scale2, 172+int3,  buttom4),
+               Ott(mV("ש"), 44,  scale2,scale2, 197+int3,  buttom4),
+               Ott(mV("ו"), 45,  scale2,scale2, 215+int3,  buttom4),
+               Ott(mV("ט"), 46,  scale2+3,scale2+3, 233+int3,  buttom4),
+
+               Ott(mV("ק"), 47,  scale2+5,scale2+5, 285+int3,  buttom4-15),
+               Ott(mV("י"), 48,  scale2,scale2, 305+int3,  buttom4),
+               Ott(mV("י"), 49,  scale2,scale2, 315+int3,  buttom4),
+               Ott(mV("מ"), 50,  scale2,scale2, 330+int3,  buttom4-3),
+               Ott(mV("י"), 51,  scale2,scale2, 350+int3,  buttom4),
+               Ott(mV("ם"), 52,  scale2,scale2, 373+int3,  buttom4)*/
         )
 
     }
@@ -215,7 +218,7 @@ class MainActivity : AppCompatActivity() {
         val imageView = ImageView(this)
         val address = Helper(this).getAnimation1(letter)
         if (animationMode) {
-            val address = Helper(this).getAnimation21(letter)
+            val address = Helper(this).getAnimation2(letter)
             imageView.setImageResource(address)
         } else {
             val address = Helper(this).getAnimation1(letter)
